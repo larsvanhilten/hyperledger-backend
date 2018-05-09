@@ -1,0 +1,20 @@
+namespace org.acme.shipping.assets
+import org.acme.shipping.participants.*
+
+asset Container identified by number {
+  o String number
+  o ContainerType type
+  o String content
+  o ContainerStatus status default = "FREE"
+  --> Company owner
+}
+  
+enum ContainerType {
+  o DRY
+  o REEFER
+}
+
+enum ContainerStatus {
+  o LOCKED
+  o FREE
+}

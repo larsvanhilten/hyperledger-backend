@@ -1,0 +1,23 @@
+
+namespace org.acme.shipping.participants
+
+participant Company identified by id {
+  o String id
+  o String name
+  o CompanyType type
+}
+
+enum CompanyType {
+  o BORDER
+  o COURIER
+  o SHIPPER
+}
+
+participant Person identified by email {
+  o String email
+  o String name
+  --> Company company
+}
+
+
+

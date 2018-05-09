@@ -1,0 +1,77 @@
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule readCompany {
+    description: "Allow Read Access to Person's Own Company"
+    participant: "org.acme.shipping.participants.Person"
+    operation: READ
+    resource: "org.acme.shipping.participants.Company"
+    action: ALLOW
+}
+
+rule readPerson {
+    description: "Allow Read Access to itself"
+    participant(p): "org.acme.shipping.participants.Person"
+    operation: READ
+    resource(i): "org.acme.shipping.participants.Person"
+    condition: (p.getIdentifier() == i.getIdentifier())
+    action: ALLOW
+}
+
+rule transaction {
+    description: "Allow participants full access to transactions"
+    participant: "org.acme.shipping.participants.Person"
+    operation: ALL
+    resource: "org.acme.shipping.transactions.**"
+    action: ALLOW
+}
+
+rule containers {
+    description: "Allow participants access to containers owned by their company"
+    participant(p): "org.acme.shipping.participants.Person"
+    operation: ALL
+    resource(c): "org.acme.shipping.assets.**"
+    condition: (c.owner.getIdentifier() == p.company.getIdentifier())
+    action: ALLOW
+}
+
+rule borderReadContainers {
+    description: "Allow Border to read containers"
+    participant(p): "org.acme.shipping.participants.Person"
+    operation: READ
+    resource: "org.acme.shipping.assets.**"
+    condition: (p.company.type == "BORDER")
+    action: ALLOW
+}
+
+rule borderUpdateContainers {
+    description: "Allow Border to update containers through transactions"
+    participant(p): "org.acme.shipping.participants.Person"
+    operation: UPDATE
+    resource: "org.acme.shipping.assets.**"
+    transaction: "org.acme.shipping.transactions.**"
+    condition: (p.company.type == "BORDER")
+    action: ALLOW
+}

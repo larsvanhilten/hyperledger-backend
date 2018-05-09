@@ -1,0 +1,30 @@
+namespace org.acme.shipping.transactions
+import org.acme.shipping.participants.*
+import org.acme.shipping.assets.*
+
+transaction TransferContainer {
+  --> Container container
+  --> Company owner
+}
+
+event TransferContainerEvent {
+  --> Company from
+  --> Company to
+  --> Container container
+}
+
+transaction LockContainer {
+  --> Container container
+}
+
+event LockContainerEvent {
+  --> Container container
+}
+
+transaction FreeContainer {
+  --> Container container
+}
+
+event FreeContainerEvent {
+  --> Container container
+}
