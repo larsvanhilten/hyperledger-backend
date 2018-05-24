@@ -1,3 +1,3 @@
-# Shipping network
+# Shipping network backend
  
-A blockchain solution built in Hyperledger Fabric for the maritime sector. In this network shippers, couriers and customs exchange data to increase transparency and thus effiency.
+A blockchain prototype built in Hyperledger Fabric for the maritime sector. In this network shippers, couriers and customs exchange data to increase transparency and effiency.
