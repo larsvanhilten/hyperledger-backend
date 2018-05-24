@@ -1,6 +1,36 @@
 namespace org.acme.shipping.transactions
 import org.acme.shipping.participants.*
 import org.acme.shipping.assets.*
+  
+transaction AddContainers {
+  o Container[] containers
+}
+
+event AddContainersEvent {
+  o Container[] containers
+}
+
+transaction RespondToRequest {
+  --> Request request
+  o RequestStatus response
+}
+
+event RespondToRequestEvent {
+  --> Request request
+}
+
+transaction RequestContainer {
+  o String id
+  --> Company to
+  --> Container container
+}
+
+event RequestContainerEvent {
+  o String id
+  --> Company from
+  --> Company to
+  --> Container container
+}
 
 transaction TransferContainer {
   --> Container container
@@ -14,17 +44,17 @@ event TransferContainerEvent {
 }
 
 transaction LockContainer {
-  --> Container container
+  --> Container[] containers
 }
 
 event LockContainerEvent {
-  --> Container container
+  --> Container[] containers
 }
 
 transaction FreeContainer {
-  --> Container container
+  --> Container[] containers
 }
 
 event FreeContainerEvent {
-  --> Container container
+  --> Container[] containers
 }
