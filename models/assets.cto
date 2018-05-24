@@ -18,3 +18,18 @@ enum ContainerStatus {
   o LOCKED
   o FREE
 }
+
+enum RequestStatus {
+  o IN_PROGRESS
+  o DONE
+  o REJECTED
+}  
+  
+asset Request identified by id {
+  o String id
+  o RequestStatus status default = "IN_PROGRESS"
+  o DateTime timestamp
+  --> Container container
+  --> Company from
+  --> Company to
+}
